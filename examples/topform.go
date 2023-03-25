@@ -69,10 +69,9 @@ func topForm() {
 	// Most Controls have default size unless SetSize is called.
 	edt.SetText("edit text")
 
-	btn := winc.NewPushButton(mainWindow)
-	btn.SetText("Show or Hide")
+	btn := winc.NewPushButton(mainWindow, "Show or Hide")
 	btn.SetPos(40, 50)
-	btn.SetSize(100, 40)
+	// btn.SetSize(100, 40)
 	btn.OnClick().Bind(func(e *winc.Event) {
 		if edt.Visible() {
 			edt.Hide()

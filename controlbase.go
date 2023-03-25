@@ -198,11 +198,15 @@ func (cba *ControlBase) clampSize(width, height int) (int, int) {
 	return width, height
 }
 
-func (cba *ControlBase) SetSize(width, height int) {
+func (cba *ControlBase) SetSizePx(dx, dy int) {
 	x, y := cba.Pos()
+	w32.MoveWindow(cba.hwnd, x, y, dx, dy, true)
+}
+
+func (cba *ControlBase) SetSize(width, height int) {
 	width, height = cba.clampSize(width, height)
 	width, height = cba.scaleWithWindowDPI(width, height)
-	w32.MoveWindow(cba.hwnd, x, y, width, height, true)
+	cba.SetSizePx(width, height)
 }
 
 func (cba *ControlBase) SetMinSize(width, height int) {

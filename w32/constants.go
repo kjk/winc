@@ -223,6 +223,28 @@ const (
 	BM_SETSTYLE = 244
 )
 
+type WM uint32
+
+// Button control messages (BCM).
+//
+// 📑 https://docs.microsoft.com/en-us/windows/win32/controls/bumper-button-control-reference-messages
+const (
+	_BCM_FIRST = 0x1600
+
+	BCM_GETIDEALSIZE     = _BCM_FIRST + 1
+	BCM_SETIMAGELIST     = _BCM_FIRST + 2
+	BCM_GETIMAGELIST     = _BCM_FIRST + 3
+	BCM_SETTEXTMARGIN    = _BCM_FIRST + 4
+	BCM_GETTEXTMARGIN    = _BCM_FIRST + 5
+	BCM_SETDROPDOWNSTATE = _BCM_FIRST + 6
+	BCM_SETSPLITINFO     = _BCM_FIRST + 7
+	BCM_GETSPLITINFO     = _BCM_FIRST + 8
+	BCM_SETNOTE          = _BCM_FIRST + 9
+	BCM_GETNOTE          = _BCM_FIRST + 10
+	BCM_GETNOTELENGTH    = _BCM_FIRST + 11
+	BCM_SETSHIELD        = _BCM_FIRST + 12
+)
+
 // Button notifications
 const (
 	BN_CLICKED       = 0

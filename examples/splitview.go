@@ -49,10 +49,9 @@ func splitView() {
 	//tipRun := winc.NewToolTip(mainWindow)
 	//tipRun.AddTool(btnRun, "Run project")
 
-	btnEdit := winc.NewPushButton(toolbar)
-	btnEdit.SetText(" Edit")
+	btnEdit := winc.NewPushButton(toolbar, "Edit")
 	btnEdit.SetPos(102, 2)
-	btnEdit.SetSize(98, 38)
+	// btnEdit.SetSize(98, 38)
 	btnEdit.SetResIcon(18)
 
 	left := winc.NewMultiEdit(mainWindow)

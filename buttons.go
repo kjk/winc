@@ -7,6 +7,7 @@ package winc
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/kjk/winc/w32"
 )
@@ -33,6 +34,21 @@ func (bt *Button) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	}
 	return w32.DefWindowProc(bt.hwnd, msg, wparam, lparam)
 	//return bt.W32Control.WndProc(msg, wparam, lparam)
+}
+
+func (bt *Button) IdealSize() (int, int) {
+	// min := b.dialogBaseUnitsToPixels(Size{50, 14})
+
+	// if b.Text() == "" {
+	// 	return min
+	// }
+
+	var s w32.SIZE
+	w32.SendMessage(bt.hwnd, w32.BCM_GETIDEALSIZE, 0, uintptr(unsafe.Pointer(&s)))
+	return int(s.CX) + 8, int(s.CY) + 4
+
+	// return maxSize(sizeFromSIZE(s), min)
+
 }
 
 func (bt *Button) Checked() bool {
@@ -65,15 +81,16 @@ type PushButton struct {
 	Button
 }
 
-func NewPushButton(parent Controller) *PushButton {
+func NewPushButton(parent Controller, s string) *PushButton {
 	pb := new(PushButton)
 
 	pb.InitControl("BUTTON", parent, 0, w32.BS_PUSHBUTTON|w32.WS_TABSTOP|w32.WS_VISIBLE|w32.WS_CHILD)
 	RegMsgHandler(pb)
 
 	pb.SetFont(DefaultFont)
-	pb.SetText("Button")
-	pb.SetSize(100, 22)
+	pb.SetText(s)
+	dx, dy := pb.IdealSize()
+	pb.SetSizePx(dx, dy)
 
 	return pb
 }

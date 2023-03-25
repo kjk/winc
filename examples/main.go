@@ -7,20 +7,22 @@ import (
 	"github.com/kjk/winc/w32"
 )
 
+func push[T any](a *[]T, el T) {
+	*a = append(*a, el)
+}
+
 func dispatchSamples() {
 	mainWindow := winc.NewForm(nil)
 	mainWindow.SetSize(400, 100)
 	mainWindow.SetText("Hello World Demo")
 
+	var buttons []*winc.PushButton
 	y := 4
 	maxDx := 0
 	addBtn := func(s string, fn func()) *winc.PushButton {
-		btn := winc.NewPushButton(mainWindow)
-		btn.SetText(s)
+		btn := winc.NewPushButton(mainWindow, s)
 		btn.SetPos(8, y)
 		dx, dy := btn.Size()
-		dx = dx * 2
-		btn.SetSize(dx, dy)
 		y = y + dy + 2
 		if dx > maxDx {
 			maxDx = dx
@@ -30,6 +32,7 @@ func dispatchSamples() {
 				fn()
 			})
 		}
+		push(&buttons, btn)
 		return btn
 	}
 
@@ -44,6 +47,12 @@ func dispatchSamples() {
 	addBtn("Run ScrollView", scrollView)
 	addBtn("Run Slider", slider)
 	addBtn("Run SplitView", splitView)
+
+	// make all buttons same size
+	for _, btn := range buttons {
+		_, dy := btn.Size()
+		btn.SetSizePx(maxDx, dy)
+	}
 
 	// dx, _ := mainWindow.Size()
 	mainWindow.SetSize(maxDx+8+8, y-2)

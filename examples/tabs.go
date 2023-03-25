@@ -73,7 +73,7 @@ func tabs() {
 	edt2 := winc.NewEdit(panel2)
 	edt2.SetPos(40, 10)
 
-	btn := winc.NewPushButton(panel3)
+	btn := winc.NewPushButton(panel3, "Button")
 	btn.OnClick().Bind(func(e *winc.Event) {
 		println("click")
 	})

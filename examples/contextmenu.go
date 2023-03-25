@@ -97,9 +97,8 @@ func contextMenu() {
 	edt.SetPos(10, 535)
 	edt.SetText("some text")
 
-	btn := winc.NewPushButton(panel)
-	btn.SetText("Button")
-	btn.SetSize(100, 40)
+	btn := winc.NewPushButton(panel, "Button")
+	// btn.SetSize(100, 40)
 	btn.OnClick().Bind(func(e *winc.Event) {
 		if edt.Visible() {
 			edt.Hide()

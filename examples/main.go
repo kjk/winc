@@ -38,6 +38,8 @@ func dispatchSamples() {
 	addBtn("Run Tabs", tabs)
 	addBtn("Run Docking", docking)
 	addBtn("Run Image", image)
+	addBtn("Run ImageBox", imageBox)
+	addBtn("Run ScrollView", scrollView)
 
 	mainWindow.Center()
 	mainWindow.Show()

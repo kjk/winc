@@ -1099,7 +1099,7 @@ const (
 	OFN_SHOWHELP             = 0x00000010
 )
 
-//SHBrowseForFolder flags
+// SHBrowseForFolder flags
 const (
 	BIF_RETURNONLYFSDIRS    = 0x00000001
 	BIF_DONTGOBELOWDOMAIN   = 0x00000002
@@ -1120,7 +1120,7 @@ const (
 	BIF_BROWSEFILEJUNCTIONS = 0x00010000
 )
 
-//MessageBox flags
+// MessageBox flags
 const (
 	MB_OK                = 0x00000000
 	MB_OKCANCEL          = 0x00000001
@@ -1144,7 +1144,7 @@ const (
 	MB_DEFBUTTON4        = 0x00000300
 )
 
-//COM
+// COM
 const (
 	E_INVALIDARG  = 0x80070057
 	E_OUTOFMEMORY = 0x8007000E
@@ -3522,4 +3522,11 @@ const (
 	SIF_DISABLENOSCROLL = 8
 	SIF_TRACKPOS        = 16
 	SIF_ALL             = SIF_RANGE + SIF_PAGE + SIF_POS + SIF_TRACKPOS
+)
+
+// https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfow
+// SystemParametersInfoW constants
+const (
+	SPI_GETACCESSTIMEOUT    = 0x003C
+	SPI_GETNONCLIENTMETRICS = 0x0029
 )

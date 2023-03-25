@@ -134,6 +134,7 @@ var (
 	procSetWindowsHookEx              = moduser32.NewProc("SetWindowsHookExW")
 	procUnhookWindowsHookEx           = moduser32.NewProc("UnhookWindowsHookEx")
 	procCallNextHookEx                = moduser32.NewProc("CallNextHookEx")
+	procSystemParametersInfoW         = moduser32.NewProc("SystemParametersInfoW")
 
 	libuser32, _        = syscall.LoadLibrary("user32.dll")
 	insertMenuItem, _   = syscall.GetProcAddress(libuser32, "InsertMenuItemW")
@@ -1251,10 +1252,26 @@ func SetScrollInfo(hwnd HWND, fnBar int32, lpsi *SCROLLINFO, fRedraw bool) int32
 }
 
 func GetScrollInfo(hwnd HWND, fnBar int32, lpsi *SCROLLINFO) bool {
-	ret, _, _ := syscall.Syscall(getScrollInfo, 3,
+	ret, _, _ := syscall.SyscallN(getScrollInfo,
 		hwnd,
 		uintptr(fnBar),
 		uintptr(unsafe.Pointer(lpsi)))
 
 	return ret != 0
+}
+
+func SystemParametersInfoW(action uint, uiParam uint, pvParam LPCVOID, fWinIni uint) bool {
+	ret, _, _ := procSystemParametersInfoW.Call(
+		uintptr(action),
+		uintptr(uiParam),
+		uintptr(pvParam),
+		uintptr(fWinIni))
+	return ret != 0
+}
+
+func GetNonClientMetrics() *NONCLIENTMETRICS {
+	var ncm NONCLIENTMETRICS
+	ncm.SetCbSize()
+	SystemParametersInfoW(SPI_GETNONCLIENTMETRICS, uint(ncm.CbSize), unsafe.Pointer(&ncm), 0)
+	return &ncm
 }

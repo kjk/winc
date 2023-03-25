@@ -6,6 +6,7 @@
 package winc
 
 import (
+	"fmt"
 	"syscall"
 
 	"github.com/kjk/winc/w32"
@@ -19,7 +20,13 @@ const (
 )
 
 func init() {
-	DefaultFont = NewFont("MS Shell Dlg 2", 9, 0)
+	hDC := w32.GetDC(0)
+	defer w32.ReleaseDC(0, hDC)
+	ScreenDPIY = w32.GetDeviceCaps(hDC, w32.LOGPIXELSY)
+
+	ncm := w32.GetNonClientMetrics()
+	h := int(ncm.LfMessageFont.Height)
+	DefaultFont = NewFontPixel("MS Shell Dlg 2", h, 0)
 }
 
 type Font struct {
@@ -29,14 +36,16 @@ type Font struct {
 	style     byte
 }
 
-func NewFont(family string, pointSize int, style byte) *Font {
+func Unscale(n int, dpi int) int {
+	return (n * 72) / dpi
+}
+
+func NewFontPixel(family string, size int, style byte) *Font {
 	if style > FontBold|FontItalic|FontUnderline|FontStrikeOut {
 		panic("Invalid font style")
 	}
-
-	hDC := w32.GetDC(0)
-	defer w32.ReleaseDC(0, hDC)
-	screenDPIY := w32.GetDeviceCaps(hDC, w32.LOGPIXELSY)
+	pointSize := Unscale(size, ScreenDPIY)
+	fmt.Printf("pointSize: %v, size: %v\n", pointSize, size)
 
 	font := Font{
 		family:    family,
@@ -44,7 +53,7 @@ func NewFont(family string, pointSize int, style byte) *Font {
 		style:     style,
 	}
 
-	font.hfont = font.createForDPI(screenDPIY)
+	font.hfont = font.createForDPI(ScreenDPIY)
 	if font.hfont == 0 {
 		panic("CreateFontIndirect failed")
 	}
@@ -52,10 +61,28 @@ func NewFont(family string, pointSize int, style byte) *Font {
 	return &font
 }
 
-func (fnt *Font) createForDPI(dpi int) w32.HFONT {
-	var lf w32.LOGFONT
+func NewFont(family string, pointSize int, style byte) *Font {
+	if style > FontBold|FontItalic|FontUnderline|FontStrikeOut {
+		panic("Invalid font style")
+	}
 
-	lf.Height = int32(-w32.MulDiv(fnt.pointSize, dpi, 72))
+	font := Font{
+		family:    family,
+		pointSize: pointSize,
+		style:     style,
+	}
+
+	font.hfont = font.createForDPI(ScreenDPIY)
+	if font.hfont == 0 {
+		panic("CreateFontIndirect failed")
+	}
+
+	return &font
+}
+
+func (fnt *Font) createForHeight(height int) w32.HFONT {
+	var lf w32.LOGFONT
+	lf.Height = int32(-height)
 	if fnt.style&FontBold > 0 {
 		lf.Weight = w32.FW_BOLD
 	} else {
@@ -76,11 +103,16 @@ func (fnt *Font) createForDPI(dpi int) w32.HFONT {
 	lf.Quality = w32.CLEARTYPE_QUALITY
 	lf.PitchAndFamily = w32.VARIABLE_PITCH | w32.FF_SWISS
 
-	src := syscall.StringToUTF16(fnt.family)
+	src, _ := syscall.UTF16FromString(fnt.family)
 	dest := lf.FaceName[:]
 	copy(dest, src)
 
 	return w32.CreateFontIndirect(&lf)
+}
+
+func (fnt *Font) createForDPI(dpi int) w32.HFONT {
+	n := w32.MulDiv(fnt.pointSize, dpi, 72)
+	return fnt.createForHeight(n)
 }
 
 func (fnt *Font) GetHFONT() w32.HFONT {

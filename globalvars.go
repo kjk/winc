@@ -22,4 +22,5 @@ var (
 var (
 	GeneralWndprocCallBack = syscall.NewCallback(generalWndProc)
 	DefaultFont            *Font
+	ScreenDPIY             int
 )

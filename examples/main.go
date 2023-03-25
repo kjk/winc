@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kjk/winc"
+	"github.com/kjk/winc/w32"
 )
 
 func dispatchSamples() {
@@ -57,6 +58,9 @@ func main() {
 	defer func() {
 		fmt.Printf("defer!\n")
 	}()
+	ncm := w32.GetNonClientMetrics()
+	fh := ncm.LfMessageFont.Height
+	fmt.Printf("Message font height: %v\n", fh)
 	dispatchSamples()
 	winc.RunMainLoop()
 }

@@ -214,6 +214,7 @@ type (
 	HWND            = HANDLE
 	LPARAM          = uintptr
 	LPCVOID         = unsafe.Pointer
+	LPVOID          = unsafe.Pointer
 	LRESULT         = uintptr
 	PVOID           = unsafe.Pointer
 	QPC_TIME        = uint64
@@ -293,6 +294,35 @@ type LOGFONT struct {
 	Quality        byte
 	PitchAndFamily byte
 	FaceName       [LF_FACESIZE]uint16
+}
+
+// ⚠️ You must call SetCbSize() to initialize the struct.
+//
+// 📑 https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-nonclientmetricsw
+type NONCLIENTMETRICS struct {
+	CbSize             uint32
+	IBorderWidth       int32
+	IScrollWidth       int32
+	IScrollHeight      int32
+	ICaptionWidth      int32
+	ICaptionHeight     int32
+	LfCaptionFont      LOGFONT
+	ISmCaptionWidth    int32
+	ISmCaptionHeight   int32
+	LfSmCaptionFont    LOGFONT
+	IMenuWidth         int32
+	IMenuHeight        int32
+	LfMenuFont         LOGFONT
+	LfStatusFont       LOGFONT
+	LfMessageFont      LOGFONT
+	IPaddedBorderWidth int32
+}
+
+func (ncm *NONCLIENTMETRICS) SetCbSize() {
+	ncm.CbSize = uint32(unsafe.Sizeof(*ncm))
+	// if !IsWindowsVistaOrGreater() {
+	// 	ncm.cbSize -= uint32(unsafe.Sizeof(ncm.IBorderWidth))
+	// }
 }
 
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms646839.aspx

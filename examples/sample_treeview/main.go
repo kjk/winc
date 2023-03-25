@@ -50,7 +50,12 @@ func dispatchSamples() {
 			listView()
 		})
 	}
-
+	{
+		btn := addBtn("Run Tabs")
+		btn.OnClick().Bind(func(e *winc.Event) {
+			tabs()
+		})
+	}
 	mainWindow.Center()
 	mainWindow.Show()
 	mainWindow.OnClose().Bind(wndOnClose)

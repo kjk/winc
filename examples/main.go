@@ -40,6 +40,8 @@ func dispatchSamples() {
 	addBtn("Run Image", image)
 	addBtn("Run ImageBox", imageBox)
 	addBtn("Run ScrollView", scrollView)
+	addBtn("Run Slider", slider)
+	addBtn("Run SplitView", splitView)
 
 	mainWindow.Center()
 	mainWindow.Show()

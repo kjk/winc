@@ -12,6 +12,9 @@
     },
     "#15": {
       "0000": "application_lightning.ico"
+    },
+    "#18": {
+      "0000": "edit.ico"
     }
   },
   "RT_MANIFEST": {

@@ -1,21 +1,10 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/kjk/winc"
 )
 
-func btnOnClick(arg *winc.Event) {
-	//edt.SetCaption("Got you !!!")
-	fmt.Println("Button clicked")
-}
-
-func wndOnClose(arg *winc.Event) {
-	winc.Exit()
-}
-
-func main() {
+func splitView() {
 	mainWindow := winc.NewForm(nil)
 
 	mainWindow.SetSize(700, 600)
@@ -51,7 +40,7 @@ func main() {
 	btnRun.SetText(" Run")
 	btnRun.SetPos(2, 2)
 	btnRun.SetSize(98, 38)
-	btnRun.SetResIcon(15)
+	btnRun.SetResIcon(10)
 
 	btnRun.OnClick().Bind(func(e *winc.Event) {
 		println("event OnClick")
@@ -94,8 +83,4 @@ func main() {
 	})
 
 	dock.Update()
-
-	winc.RunMainLoop()
-	// --- end of Dock and main window management
-
 }

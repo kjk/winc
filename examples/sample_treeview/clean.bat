@@ -1,0 +1,2 @@
+del *.syso
+del *.exe

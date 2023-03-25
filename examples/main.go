@@ -56,6 +56,12 @@ func dispatchSamples() {
 			tabs()
 		})
 	}
+	{
+		btn := addBtn("Run Docking")
+		btn.OnClick().Bind(func(e *winc.Event) {
+			docking()
+		})
+	}
 	mainWindow.Center()
 	mainWindow.Show()
 	mainWindow.OnClose().Bind(wndOnClose)

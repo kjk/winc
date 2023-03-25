@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/kjk/winc"
 )
 
@@ -17,28 +19,35 @@ func dispatchSamples() {
 	mainWindow.SetText("Hello World Demo")
 
 	y := 0
-	{
-		btn := newButton(mainWindow, "Run ListView", y)
+	addBtn := func(s string) *winc.PushButton {
+		btn := newButton(mainWindow, s, y)
 		_, dy := btn.Size()
 		y += dy + 2
+		return btn
+	}
+
+	{
+		btn := addBtn("Run ListView")
 		btn.OnClick().Bind(func(e *winc.Event) {
 			treeViewExample()
 		})
 	}
 	{
-		btn := newButton(mainWindow, "Run TopForm", y)
-		_, dy := btn.Size()
-		y += dy + 2
+		btn := addBtn("Run TopForm")
 		btn.OnClick().Bind(func(e *winc.Event) {
 			topForm()
 		})
 	}
 	{
-		btn := newButton(mainWindow, "Run ContextMenu", y)
-		_, dy := btn.Size()
-		y += dy + 2
+		btn := addBtn("Run ContextMenu")
 		btn.OnClick().Bind(func(e *winc.Event) {
 			contextMenu()
+		})
+	}
+	{
+		btn := addBtn("Run ListView")
+		btn.OnClick().Bind(func(e *winc.Event) {
+			listView()
 		})
 	}
 
@@ -48,6 +57,10 @@ func dispatchSamples() {
 }
 
 func main() {
+	println("Hello!\n")
+	defer func() {
+		fmt.Printf("defer!\n")
+	}()
 	dispatchSamples()
 	winc.RunMainLoop()
 }

@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 type ControlBase struct {
@@ -404,7 +404,7 @@ func (cba *ControlBase) PreTranslateMessage(msg *w32.MSG) bool {
 	return false
 }
 
-//Events
+// Events
 func (cba *ControlBase) OnCreate() *EventManager {
 	return &cba.onCreate
 }

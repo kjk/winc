@@ -7,7 +7,7 @@ package winc
 import (
 	"unsafe"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 type ScrollView struct {

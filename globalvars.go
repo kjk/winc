@@ -8,17 +8,17 @@ package winc
 import (
 	"syscall"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
-//Private global variables.
+// Private global variables.
 var (
 	gAppInstance        w32.HINSTANCE
 	gControllerRegistry map[w32.HWND]Controller
 	gRegisteredClasses  []string
 )
 
-//Public global variables.
+// Public global variables.
 var (
 	GeneralWndprocCallBack = syscall.NewCallback(generalWndProc)
 	DefaultFont            *Font

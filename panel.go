@@ -7,7 +7,7 @@ package winc
 import (
 	"fmt"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 type Panel struct {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/leaanthony/winc"
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc"
+	"github.com/kjk/winc/w32"
 )
 
 // TopForm displayed as topmost window until closed.

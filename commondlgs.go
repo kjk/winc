@@ -10,7 +10,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 func genOFN(parent Controller, title, filter string, filterIndex uint, initialDir string, buf []uint16) *w32.OPENFILENAME {

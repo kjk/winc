@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/leaanthony/winc"
+	"github.com/kjk/winc"
 )
 
 func main() {

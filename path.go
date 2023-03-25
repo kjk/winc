@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"syscall"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 func knownFolderPath(id w32.CSIDL) (string, error) {

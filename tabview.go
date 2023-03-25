@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/leaanthony/winc/w32"
+	"github.com/kjk/winc/w32"
 )
 
 // TabView creates MultiPanel internally and manages tabs as panels.

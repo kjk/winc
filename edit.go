@@ -5,7 +5,7 @@
 
 package winc
 
-import "github.com/leaanthony/winc/w32"
+import "github.com/kjk/winc/w32"
 
 type Edit struct {
 	ControlBase
@@ -37,7 +37,7 @@ func (ed *Edit) SetReadOnly(isReadOnly bool) {
 	w32.SendMessage(ed.hwnd, w32.EM_SETREADONLY, uintptr(w32.BoolToBOOL(isReadOnly)), 0)
 }
 
-//Public methods
+// Public methods
 func (ed *Edit) SetPassword(isPassword bool) {
 	if isPassword {
 		w32.SendMessage(ed.hwnd, w32.EM_SETPASSWORDCHAR, uintptr(passwordChar), 0)

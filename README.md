@@ -1,6 +1,6 @@
 # winc
 
-** This is a fork of [tadvi/winc](https://github.com/leaanthony/winc) for the sole purpose of integration with [Wails](https://github.com/wailsapp/wails). This repository comes with ***no support*** **
+** This is a fork of [tadvi/winc](https://github.com/kjk/winc) for the sole purpose of integration with [Wails](https://github.com/wailsapp/wails). This repository comes with ***no support*** **
 
 Common library for Go GUI apps on Windows. It is for Windows OS only. This makes library smaller than some other UI libraries for Go.
 
@@ -42,7 +42,7 @@ Best way to learn how to use the library is to look at the included **examples**
 1. Make sure you have a working Go installation and build environment, see more for details on page below.
    http://golang.org/doc/install
 
-2. go get github.com/leaanthony/winc
+2. go get github.com/kjk/winc
 
 ## Icons
 
@@ -96,7 +96,7 @@ Dialog screens are not based on Windows resource files (.rc). They are just wind
 package main
 
 import (
-	"github.com/leaanthony/winc"
+	"github.com/kjk/winc"
 )
 
 func main() {
@@ -148,7 +148,7 @@ This is usually due to string UTF8 and UTF16 conversions. But there are other ty
 
 When developing your own controls you might also need to:
 
-	import "github.com/leaanthony/winc/w32"
+	import "github.com/kjk/winc/w32"
 
 w32 has Win32 API low level constants and functions.
 

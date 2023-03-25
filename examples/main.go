@@ -19,49 +19,26 @@ func dispatchSamples() {
 	mainWindow.SetText("Hello World Demo")
 
 	y := 0
-	addBtn := func(s string) *winc.PushButton {
+	addBtn := func(s string, fn func()) *winc.PushButton {
 		btn := newButton(mainWindow, s, y)
 		_, dy := btn.Size()
 		y += dy + 2
+		if fn != nil {
+			btn.OnClick().Bind(func(e *winc.Event) {
+				fn()
+			})
+		}
 		return btn
 	}
 
-	{
-		btn := addBtn("Run ListView")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			treeViewExample()
-		})
-	}
-	{
-		btn := addBtn("Run TopForm")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			topForm()
-		})
-	}
-	{
-		btn := addBtn("Run ContextMenu")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			contextMenu()
-		})
-	}
-	{
-		btn := addBtn("Run ListView")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			listView()
-		})
-	}
-	{
-		btn := addBtn("Run Tabs")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			tabs()
-		})
-	}
-	{
-		btn := addBtn("Run Docking")
-		btn.OnClick().Bind(func(e *winc.Event) {
-			docking()
-		})
-	}
+	addBtn("Run ListView", treeViewExample)
+	addBtn("Run TopForm", topForm)
+	addBtn("Run ContextMenu", contextMenu)
+	addBtn("Run ListView", listView)
+	addBtn("Run Tabs", tabs)
+	addBtn("Run Docking", docking)
+	addBtn("Run Image", image)
+
 	mainWindow.Center()
 	mainWindow.Show()
 	mainWindow.OnClose().Bind(wndOnClose)
